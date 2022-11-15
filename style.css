@@ -1,0 +1,760 @@
+/*
+Theme Name: Feral Fairy
+Author: sopht
+Author URI: https://sopht.art/
+Description: website for L'Auberge des Migrants
+Version: 0.0
+*/
+
+
+
+/* MAPA DE CONTENIDOS:
+
+1) =ROOT:
+  1.1) =Variables de personalizacion de pagina
+  1.2) =Variables de cambio visual relacionado a al ancho de la pantalla
+
+2) =MEDIA QUERIES:
+  2.1) min-width:  360px
+  2.2) min-width:  768px
+  2.3) min-width: 1200px
+
+3) =TIPOGRAFIAS:
+
+4) =ETIQUETAS GLOBALES:
+
+5) =ESTRUCTURA:
+
+6) =COMPONENTES:
+6.1) =header:
+6.2) =abstract:
+6.3) =perks:
+6.4) =multiCards:
+6.4.1) =hero_card:
+6.5) =navbar:
+6.6) =BUTTONS:
+6.7) =content:
+
+6.22) =dopel:
+6.42) =cat:
+6.45) =book:
+6.48) =news:
+6.49) =action:
+
+6.69) =redDot:
+6.99) =footer:
+
+FIN DE MAPA DE CONTENIDOS */
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                              1) =ROOT:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+
+:root {
+	font-size: var(--sizeR);
+	/* ---------------------------------------------------------------------------
+	------------------------------------------------------------------------------
+				1.1) =Variables de personalizacion de pagina
+	------------------------------------------------------------------------------
+	--------------------------------------------------------------------------- */
+	/* la idea de esto es que sean como controles con los
+	que hacer facilmente diferentes versiones de la pagina */
+
+	--lateral:1rem;
+	--scrollbar_width:8px;
+
+
+	/* FONTS */
+	--font_normal:'Archivo', sans-serif;
+	--font_italic:'Archivo-Italic', sans-serif;
+
+	/* COLORS */
+	/* Al editar colores siempre usar HEX y nunca
+	dejar espacio entre los dos puntos y el color */
+	--color_txt:#222;
+	--color_txt_accent:#A5C217;
+	/* --color_txt_accent:#29337F; */
+	--color_txt_opposite:#222;
+	--color_background_0:#EAEAEA;
+	--color_background_1:#DADADF;
+	--color_background_accent_0:#222222;
+
+
+	--color_background_normal:#4FECC8;
+	/* --color_background_accent:#000; */
+
+	/* SIZES */
+	--padding_button: .5rem 1.5rem;
+	/* --padding_button: .4rem 1.4rem; */
+	/* Al editar los tamaños, hacerlo siempre sin unidades
+	sabiendo que el numero corresponde a la cantidad de pixeles */
+	--sizeRa:16;--sizeRb:18;--sizeRc:18;--sizeRd:20;
+	/* !PREGUNTA: cual es el tamaño minimo de letra? */
+
+	--sizeR: calc(var(--sizeRa) * 1px);
+
+	/* ---------------------------------------------------------------------------
+	------------------------------------------------------------------------------
+		1.2) =Variables de cambio visual relacionado a al ancho de la pantalla
+	------------------------------------------------------------------------------
+	--------------------------------------------------------------------------- */
+	--onlyDesktopF:none;
+	--onlyDesktopG:none;
+	--onlyMobileF:flex;
+	--onlyMobileG:grid;
+
+	/* ?HEADER */
+	--header_height:2.5rem;
+	--header_padding_v:.3rem;
+
+	/* ?FOOTER */
+}
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          2) =MEDIA QUERIES:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      2.1) min-width:  =360px
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+@media screen and (min-width: 360px) {
+	:root {
+		/* font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - 400px) / (1024 - 400))); */
+		--sizeR: calc(calc(var(--sizeRa) * 1px) + (var(--sizeRb) - var(--sizeRa)) * ((100vw - 360px) / (768 - 360)));
+
+		/* ?HEADER */
+		/* ?FOOTER */
+	}
+}
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      2.2) min-width:  =768px
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+@media screen and (min-width: 768px) {
+	:root {
+		/* --lateral:calc((100vw - 768px + 4rem)/2); */
+		/* --lateral:2rem; */
+		--sizeR: calc(calc(var(--sizeRc) * 1px) + (var(--sizeRd) - var(--sizeRc)) * ((100vw - 768px) / (1200 - 768)));
+		--onlyDesktopG:grid;
+		--onlyDesktopF:flex;
+		--onlyMobileF:none;
+		--onlyMobileG:none;
+
+		/* ?HEADER */
+		/* ?FOOTER */
+	}
+}
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      2.3) min-width:  =1200px
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+@media  screen and (min-width: 1200px) {
+	:root {
+		--lateral:calc((100vw - 1200px + 4rem)/2);
+		/* --lateral:4rem; */
+		--sizeR: calc(var(--sizeRd) * 1px);
+
+		/* ?HEADER */
+		/* ?FOOTER */
+	}
+}
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                              =LOGIC FOLD
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          3) =TIPOGRAFIAS:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+/* Set up Roboto for modern browsers, all weights */
+@supports (font-variation-settings: normal) {
+	@font-face {
+		font-family: 'Archivo-Italic';
+		src:url('../fonts/archivo/Archivo-Italic-VariableFont_wdth,wght.ttf') format('woff2 supports variations'),
+			url('../fonts/archivo/Archivo-Italic-VariableFont_wdth,wght.ttf') format('woff2-variations');
+		font-weight: 100 900;
+		font-stretch: 62% 125%;
+	}
+	@font-face {
+		font-family: 'Archivo';
+		src:url('../fonts/archivo/Archivo-VariableFont_wdth,wght.ttf') format('woff2 supports variations'),
+			url('../fonts/archivo/Archivo-VariableFont_wdth,wght.ttf') format('woff2-variations');
+		font-weight: 100 900;
+		font-stretch: 62% 125%;
+	}
+
+	.super-bold {
+		font-weight: 1000;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          4) =ETIQUETAS GLOBALES:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+*{
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+	font-family: var(--font_normal);
+}
+figure{margin:0}
+i{font-family: var(--font_italic)}
+*::-webkit-scrollbar-track{
+	border-radius:calc(var(--scrollbar_width) / 2);
+	background-color: transparent;
+}
+*::-webkit-scrollbar{
+	width: var(--scrollbar_width);
+	position:relative;
+	background-color: transparent;
+}
+*::-webkit-scrollbar-thumb{
+	border-radius:calc(var(--scrollbar_width) / 2);
+	background-color:var(--color_txt_accent);
+}
+body{
+	display:grid;
+	min-height:100vh;
+	background: var(--color_background_0);
+	color: var(--color_txt);
+	/* overflow: hidden; */
+	transition: .4s;
+	/* background: #ccc; */
+	/* text-align: center; */
+	grid-auto-rows: 1fr;
+	grid-template-rows: min-content;
+}
+body.dark{
+--color_background_0: #333;
+--color_txt: #EEE;
+--color_background_1: #222;
+--color_background_accent_0: #DDD;
+}
+img{object-fit:cover;width:100%;display:block}
+a{text-decoration:none;color:var(--color_txt_accent);}
+ul,ol{list-style:none}
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          5) =ESTRUCTURA:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+
+.rowcol1{grid-row:1;grid-column:1}
+.onlyDesktopF{display:var(--onlyDesktopF)}
+.onlyDesktopG{display:var(--onlyDesktopG)}
+.onlyMobileF{display:var(--onlyMobileF)}
+.onlyMobileG{display:var(--onlyMobileG)}
+
+
+.dady_break {
+	display: flex;
+	flex-wrap: wrap;
+	/* NO USAR, gap es genial para grid pero aun no tiene mucho soporte */
+	/* gap:.5rem; */
+	/* --margin: 1rem; */
+	--breakpoint: 768px;
+	/* margin: calc(var(--margin) * -1); */
+}
+.dady_break > * {
+	flex-basis: calc( (var(--breakpoint) - 100%) * 999);
+	flex-grow: 1;
+	/* margin: var(--margin); */
+}
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          6) =COMPONENTES:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+section{
+	padding:3rem var(--lateral);
+}
+.wp-block-separator{
+	margin:1rem 0;
+}
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          6.1) =header:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.header{
+	display:grid;
+	grid-auto-flow: column;
+	grid-template-columns: max-content 1fr min-content;
+	grid-gap:1rem;
+	align-items: center;
+	padding:var(--header_padding_v) var(--lateral);
+	margin-bottom:auto;
+	background:var(--color_background_1);
+}
+
+.header .isologo{
+	margin-right: auto;
+	height: calc(var(--header_height) - var(--header_padding_v) * 2);
+}
+
+.isologo{
+	display:grid;
+	align-items: center;
+	grid-auto-flow: column;
+}
+.isologo .iso{
+	color: #29337F;
+	height:inherit;
+	width:auto;
+}
+.isologo .letter{
+	/* fill:#FF0000; */
+	/* fill:#A5C217; */
+}
+.isologo .logo{
+	color: #A5C217;
+	height:inherit;
+	transform-origin:left center;
+	transform:scale(.9);
+	width:auto;
+}
+.mode_toogle_btn{
+	margin:auto;
+	display:grid;
+	margin-right: 0;
+	cursor: pointer;
+	transition: .3s;
+	color: var(--color_txt);
+	height: calc(var(--header_height) - var(--header_padding_v) * 2);
+}
+.mode_toogle_btn:hover{
+	color: var(--color_txt_accent);
+}
+.mode_logo{
+	margin:auto;
+	height: calc((var(--header_height) - var(--header_padding_v) * 2) * .6);
+	/* height: inherit; */
+}
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.2) =abstract:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.abstract{
+	display:grid;
+	/* padding: 2rem var(--lateral); */
+	padding-top: 2rem;
+	grid-gap:4rem;
+	background: var(--color_background_1);
+}
+
+.abstract_title{
+	text-align: center;
+	font-size: 2rem;
+}
+.abstract_text{
+}
+
+
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.3) =perks:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.perks{
+	display:grid;
+	grid-gap:2rem;
+	grid-auto-flow:column;
+	text-align: center;
+	padding-top:4rem;
+}
+.perk{
+	display:grid;
+	grid-gap:1rem;
+}
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.4) =multiCards:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+
+
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.4.1) =hero_card:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.hero_card{
+	display: grid;
+	height: calc(88vh - var(--header_height));
+	/* height: calc(100vh - var(--header_height)); */
+	color:#EAEAEA;
+	place-items:center;
+	/* align-items: center;
+	justify-content: center;
+	overflow: hidden; */
+}
+.hero_img{
+	height: 100%;
+	min-height: calc(100vh - var(--header_height));
+	object-position: center;
+	position:absolute;
+	left:50%;
+	z-index: -1;
+	top:50%;
+	transform: translate(-50%, -50%);
+	grid-row: 1;
+	grid-column: 1;
+}
+.hero_caption{
+	grid-row: 1;
+	position:relative;
+	grid-column: 1;
+	width: 80%;
+	display:grid;
+	grid-gap:1.4rem;
+	max-width: 800px;
+	text-align: center;
+}
+.hero_title{
+	font-size: 1.5rem;
+}
+.hero_txt{
+	/* font-size: .9rem; */
+}
+.hero_button{
+	cursor: pointer;
+	border: solid 1px white;
+	color:inherit;
+	place-self: center;
+	padding: var(--padding_button);
+}
+
+
+
+
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.5) =navbar:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.navbar{
+	display:grid;
+	grid-auto-flow: column;
+	grid-gap:1rem;
+	margin:auto;
+	margin-right:0;
+}
+.navbar .sub-menu{
+  	display:none;
+}
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.6) =BUTTONS:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.7) =content:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.content{
+	display:grid;
+	grid-gap:1rem;
+}
+.content h2{
+	text-align: center;
+	font-size: 1.8rem;
+}
+.content h4{
+	font-size: 1.4rem;
+	font-weight: normal;
+}
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.22) =dopel:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.dopel{
+	display: grid;
+	grid-auto-flow: column;
+	grid-gap:1rem;
+}
+.dopel.alt .dopel_image{grid-column:2}
+.dopel_image{
+	background: var(--color_background_accent_0);
+	min-height: 300px;
+	min-width:  400px;
+	border-radius: .6rem;
+}
+.dopel_caption{
+	display: grid;
+	place-items:center;
+	place-self:center;
+	grid-gap:1rem;
+}
+.dopel_title{
+	font-size: 1.5rem;
+}
+
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.42) =cat:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.cats{
+	display: grid;
+	grid-gap: 1rem;
+	grid-auto-flow: column;
+
+}
+.cat{
+	background: var(--color_background_1);
+	border-radius: .6rem;
+	text-align: center;
+	min-height: 300px;
+	display: grid;
+	place-items: center;
+	/* align-self: center; */
+}
+.cat_caption{
+	place-items: center;
+	display: grid;
+	grid-gap: 1rem;
+}
+.cat_text{
+  	font-size: 1.8rem;
+}
+.cat_button{
+	cursor: pointer;
+	background: var(--color_background_accent_0);
+	color: var(--color_background_0);
+	padding: var(--padding_button);
+	border-radius: .2rem;
+}
+
+
+
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.45) =book:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.book{
+	display:grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 1rem;
+	place-items: center;
+}
+.book_main{
+	display:grid;
+	grid-gap: inherit;
+	grid-column: 1/-1;
+}
+.book_title{
+	text-align: center;
+	font-size: 1.8rem;
+	font-weight: bold;
+}
+.book_image{
+	background: var(--color_background_accent_0);
+	min-height: 300px;
+	min-width:  400px;
+	border-radius: .6rem;
+}
+.book_order{
+	display:grid;
+	grid-gap: inherit;
+}
+.book_cat{
+	font-size: 1.5rem;
+	/* font-weight: bold; */
+	text-align: center;
+}
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.48) =news:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.news{
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-rows: auto 1fr;
+	grid-gap:1rem;
+}
+.news_title{
+	padding: 1rem;
+	font-size: 1.5rem;
+	text-align: center;
+}
+.news_form{
+	display: grid;
+	grid-gap:.5rem;
+	background: var(--color_background_1);
+	border-radius: .4rem;
+	padding: 1rem;
+}
+.news_input{
+	font-size: 1rem;
+	border: none;
+	padding: .4rem .8rem;
+	border-radius: .2rem;
+}
+.news_button{
+	cursor: pointer;
+	background: var(--color_background_accent_0);
+	color: var(--color_background_0);
+	padding: var(--padding_button);
+	border-radius: .2rem;
+	margin-left:auto;
+	/* margin:auto; */
+	transition:.3s;
+	border: none;
+	font-size: 1rem;
+}
+.news_button:hover{
+  	background: var(--color_txt_accent);
+}
+.news_image{
+	grid-row: 1/-1;
+	background: var(--color_background_accent_0);
+	min-height: 300px;
+	min-width:  400px;
+	border-radius: .6rem;
+}
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.49) =action:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.action>div{
+	display:grid;
+	grid-gap:2.5rem;
+}
+.action h3{
+  	font-size: 1.6rem;
+}
+.action .wp-block-column{
+	display:grid;
+	grid-gap:1rem;
+}
+.action .wp-block-column h4{
+	font-size: 1.2rem;
+	line-height: 0.9rem;
+}
+.action .wp-block-column img{
+	height:10rem;
+	width:auto;
+	margin:auto;
+}
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.69) =redDot:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+#redDotExample{bottom:0}
+.redDot {
+	border-radius: 50%;
+	height: 3rem;
+	position: absolute;
+	right: 10vw;
+	width: 3rem!important;
+	z-index:12;
+}
+.redDot.test{background:red}
+
+
+
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.99) =footer:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.footer{
+	/* text-align: center; */
+	margin-top:auto;
+	background: var(--color_background_1);
+	padding:2rem var(--lateral);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+
+.footer .isologo{
+	/* display:grid; */
+	/* align-items: center; */
+	/* grid-auto-flow: column; */
+	margin: auto;
+	margin-right: 0;
+	margin-bottom: 0;
+	color: var(--color_txt);
+
+	height: 80px;
+}
+.footer .iso{
+  	color: var(--color_background_0);
+}
+.footer .logo{
+	color: var(--color_txt);
+}
+
+
+.footer_nav{
+	display: grid;
+	grid-gap:.5rem;
+}
+.footer_nav_a{
+	color: inherit;
+}
+.footer_nav_a:hover{
+	color: var(--color_txt_accent);
+}
+.signature{
+	grid-column: 1/-1;
+	font-size:.6rem;
+	text-align:center;
+}
