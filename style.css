@@ -10,6 +10,22 @@ Version: 0.0
 
 /* MAPA DE CONTENIDOS:
 
+
+
+
+UPDATE wp_options SET option_value = replace(option_value, 'from', 'url_to') WHERE option_name = 'home' OR option_name = 'siteurl';
+
+UPDATE wp_posts SET guid = replace(guid, 'http://localhost/auberge','http://auberge.host.trespiweb.com');
+
+UPDATE wp_posts SET post_content = replace(post_content, 'http://localhost/auberge', 'http://auberge.host.trespiweb.com');
+
+UPDATE wp_postmeta SET meta_value = replace(meta_value,'http://localhost/auberge','http://auberge.host.trespiweb.com');
+
+
+
+
+
+
 1) =ROOT:
   1.1) =Variables de personalizacion de pagina
   1.2) =Variables de cambio visual relacionado a al ancho de la pantalla
@@ -33,6 +49,7 @@ Version: 0.0
 6.4.1) =hero_card:
 6.5) =navbar:
 6.6) =BUTTONS:
+6.6.6) =burger:
 6.7) =content:
 
 6.22) =dopel:
@@ -106,9 +123,31 @@ FIN DE MAPA DE CONTENIDOS */
 	--onlyMobileF:flex;
 	--onlyMobileG:grid;
 
+	--fixed_768_static:fixed;
+	--row_768_column:row;
+
 	/* ?HEADER */
 	--header_height:2.5rem;
-	--header_padding_v:.3rem;
+	--header_padding_v:.2rem;
+	--header_inner_height: calc(var(--header_height) - var(--header_padding_v) * 2);
+	/* --header_padding_v:.3rem; */
+	/* --navbar_clip_path:        circle(var(--header_inner_height) at calc(100vw - 16px - 1.5rem) calc(15px + .5rem + 10px));
+	--navbar_active_clip_path: circle(calc(100vmax * 1.42)       at calc(100vw - 16px - 2rem  ) calc(2rem)); */
+
+	
+	--navbar_clip_path:        circle(calc(var(--header_inner_height)/2) at calc(100% - var(--lateral) - var(--header_inner_height)/2) calc(var(--header_height)/2));
+	--navbar_active_clip_path: circle(calc(100vmax * 1.42)               at calc(100% - var(--lateral) - var(--header_inner_height)/2) calc(var(--header_height)/2));
+	
+	--menu_item_hover: inherit;
+
+	--navbar_height: calc(var(--vh, 1vh) * 100);
+	--navbar_padding: calc(var(--header_height) + 2rem) var(--lateral) 2rem var(--lateral);
+	--sub_menu_position:static;
+	--navbar_submenu_opacity: 1;
+	/* --sub_menu_transform:translateY(100%); */
+	--sub_menu_transform:scaleY(1);
+	--sub_menu_hover_transform:unset;
+
 
 	/* ?FOOTER */
 }
@@ -149,7 +188,20 @@ FIN DE MAPA DE CONTENIDOS */
 		--onlyMobileF:none;
 		--onlyMobileG:none;
 
+		--fixed_768_static:static;
+		--row_768_column:column;
+
 		/* ?HEADER */
+    	--navbar_clip_path:unset;
+		--navbar_height: unset;
+		--navbar_padding:unset;
+		--sub_menu_position:absolute;
+		--navbar_submenu_opacity: 0;
+		/* --sub_menu_transform:scaleY(0); */
+		--menu_item_hover: var(--color_background_0);
+		--sub_menu_transform:translateY(0) translateX(-50%);
+		--sub_menu_hover_transform: translateY(100%) translateX(-50%);
+
 		/* ?FOOTER */
 	}
 }
@@ -239,10 +291,8 @@ body{
 	color: var(--color_txt);
 	/* overflow: hidden; */
 	transition: .4s;
-	/* background: #ccc; */
-	/* text-align: center; */
-	grid-auto-rows: 1fr;
-	grid-template-rows: min-content;
+	grid-template-rows: min-content 1fr;
+	grid-auto-rows: min-content;
 }
 body.dark{
 --color_background_0: #333;
@@ -289,9 +339,52 @@ ul,ol{list-style:none}
 section{
 	padding:3rem var(--lateral);
 }
+section.main > *,
+section.main .wp-block-column > *{
+	margin: .7rem 0;
+}
+section.main .wp-block-column ul{
+	padding-left: 1rem;
+}
+section.main .wp-block-column li{
+	list-style:disc;
+}
 .wp-block-separator{
 	margin:1rem 0;
 }
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                      6.49) =action:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+.action>div{
+	display:grid;
+	grid-gap:2.5rem;
+}
+.action h3{
+  	font-size: 1.6rem;
+}
+.action .wp-block-column{
+	display:grid;
+	grid-gap:1rem;
+}
+.action .wp-block-column h4{
+	font-size: 1.2rem;
+	line-height: 0.9rem;
+}
+.action .wp-block-column img{
+	height:10rem;
+	width:auto;
+	margin:auto;
+}
+
+
+
+
+
+
+
 /* ---------------------------------------------------------------------------
 ------------------------------------------------------------------------------
                           6.1) =header:
@@ -301,16 +394,21 @@ section{
 	display:grid;
 	grid-auto-flow: column;
 	grid-template-columns: max-content 1fr min-content;
-	grid-gap:1rem;
+	grid-gap:.5rem;
 	align-items: center;
 	padding:var(--header_padding_v) var(--lateral);
 	margin-bottom:auto;
 	background:var(--color_background_1);
+
+	position:fixed;
+	z-index: 1;
+	width: 100%;
 }
 
 .header .isologo{
 	margin-right: auto;
-	height: calc(var(--header_height) - var(--header_padding_v) * 2);
+	height: var(--header_inner_height);
+	z-index: 2;
 }
 
 .isologo{
@@ -342,15 +440,20 @@ section{
 	transition: .3s;
 	color: var(--color_txt);
 	height: calc(var(--header_height) - var(--header_padding_v) * 2);
+	width:  calc(var(--header_height) - var(--header_padding_v) * 2);
+	z-index: 2;
 }
 .mode_toogle_btn:hover{
 	color: var(--color_txt_accent);
 }
 .mode_logo{
 	margin:auto;
-	height: calc((var(--header_height) - var(--header_padding_v) * 2) * .6);
+	height: calc((var(--header_height) - var(--header_padding_v) * 2) * .7);
+	width:  calc((var(--header_height) - var(--header_padding_v) * 2) * .7);
 	/* height: inherit; */
 }
+
+
 
 /* ---------------------------------------------------------------------------
 ------------------------------------------------------------------------------
@@ -360,7 +463,8 @@ section{
 .abstract{
 	display:grid;
 	/* padding: 2rem var(--lateral); */
-	padding-top: 2rem;
+	padding-top: calc(var(--header_height) + 2rem);
+	/* padding-top: 2rem; */
 	grid-gap:4rem;
 	background: var(--color_background_1);
 }
@@ -463,15 +567,75 @@ section{
                       6.5) =navbar:
 ------------------------------------------------------------------------------
 --------------------------------------------------------------------------- */
+.navbar_container{
+	margin:auto;
+	margin-right:0;
+	background:inherit;
+	z-index: 1;
+}
 .navbar{
 	display:grid;
 	grid-auto-flow: column;
-	grid-gap:1rem;
-	margin:auto;
-	margin-right:0;
+  	grid-auto-flow: var(--row_768_column);
+	clip-path: var(--navbar_clip_path);
+	position: var(--fixed_768_static);
+	height: var(--navbar_height);
+	top:0;
+	width: 100%;
+	left:0;
+	padding:var(--navbar_padding);
+
+	/* background:red; */
+	background:inherit;
+	text-align:center;
+	transition: background .4s, clip-path .4s, color 0s;
+}
+
+.mobile_menu_active .navbar {
+	transition: background .4s, clip-path .4s .1s, color .5s;
+	clip-path:var(--navbar_active_clip_path);
+	/* background: var(--color_background_1); */
+}
+
+.navbar .menu-item:hover{
+	/* background: var(--color_background_0); */
+	background: var(--menu_item_hover);
+}
+.navbar .menu-item{
+	position:relative;
+	cursor: pointer;
+	padding: .8rem 0;
+}
+.navbar .menu-item > a{
+	/* padding: inherit; */
+	padding: .8rem .5rem;
+	z-index: 2;
 }
 .navbar .sub-menu{
-  	display:none;
+	background: var(--color_background_0);
+	border:var(--color_background_1) solid 2px;
+	border-radius: .6rem;
+	bottom:0;
+	display:grid;
+	left:50%;
+	margin:auto;
+	opacity: var(--navbar_submenu_opacity);
+	pointer-events: none;
+	position:var(--sub_menu_position);
+	transition: transform .4s 0s, pointer-events 0s 5s, opacity .3s;
+	transform-origin: top;
+	transform:var(--sub_menu_transform);
+	text-align: center;
+	width: max-content;
+	z-index: 1;
+}
+.navbar .sub-menu .menu-item:hover{
+	background: var(--color_background_1);
+}
+.navbar .menu-item:hover .sub-menu{
+	opacity: 1;
+	pointer-events: all;
+	transform: var(--sub_menu_hover_transform);
 }
 
 /* ---------------------------------------------------------------------------
@@ -484,6 +648,53 @@ section{
 
 
 
+
+/* ---------------------------------------------------------------------------
+------------------------------------------------------------------------------
+                          6.6.6) =burger:
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------- */
+
+.burger{
+	background: transparent;
+	box-sizing: border-box;
+	border: none;
+	cursor: pointer;
+	height: 20px;
+	display: var(--onlyMobileF);
+	--burger_width:30px;
+	margin:0 calc((var(--header_height) - var(--burger_width))/2);
+	position: relative;
+	transition: .5s;
+	width: var(--burger_width);
+	z-index: 2;
+  }
+  .burger:focus{outline: none;}
+  .mobile_menu_active .burgerBar{background: var(--color_txt_accent)}
+  .burgerBar{
+	position:absolute;
+	box-shadow: 0 0 2px rgba(0, 0, 0, .7);
+	top:   0;
+	left:  0;
+	right: 0;
+	bottom:0;
+	margin: auto;
+	height: 2px;
+	width: 100%;
+	border-radius: 3px;
+	background: var(--color_txt);
+	transform-origin: center;
+	transition: .3s;
+	transition-delay: .2s;
+  }
+  .burgerBar:nth-child(1){transform: translateY(8px)}
+  .burgerBar:nth-child(2){transform: translateY(0)}
+  .burgerBar:nth-child(3){transform: translateY(-8px)}
+  .mobile_menu_active .burgerBar:nth-child(1){transform: rotate( 45deg)}
+  .mobile_menu_active .burgerBar:nth-child(2){transform: scaleX(0)}
+  .mobile_menu_active .burgerBar:nth-child(3){transform: rotate(-45deg)}
+  
+  
 
 /* ---------------------------------------------------------------------------
 ------------------------------------------------------------------------------
@@ -660,33 +871,6 @@ section{
 	min-height: 300px;
 	min-width:  400px;
 	border-radius: .6rem;
-}
-
-
-/* ---------------------------------------------------------------------------
-------------------------------------------------------------------------------
-                      6.49) =action:
-------------------------------------------------------------------------------
---------------------------------------------------------------------------- */
-.action>div{
-	display:grid;
-	grid-gap:2.5rem;
-}
-.action h3{
-  	font-size: 1.6rem;
-}
-.action .wp-block-column{
-	display:grid;
-	grid-gap:1rem;
-}
-.action .wp-block-column h4{
-	font-size: 1.2rem;
-	line-height: 0.9rem;
-}
-.action .wp-block-column img{
-	height:10rem;
-	width:auto;
-	margin:auto;
 }
 
 

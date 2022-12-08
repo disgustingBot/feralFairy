@@ -17,7 +17,7 @@ $scrt = '6LcRuNAUAAAAALBu7Ymh0yxmTXTJmP0rsnkjGyj0';
   </style>
 </head>
 <body <?php body_class("dark"); ?>>
-  <header class="header">
+  <header class="header" id="header">
     <a href="<?=site_url('')?>" class="isologo">
 
       <svg class="iso" width="225" height="235" viewBox="0 0 225 235" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,35 +54,45 @@ $scrt = '6LcRuNAUAAAAALBu7Ymh0yxmTXTJmP0rsnkjGyj0';
 
 
     
-    <?php
-    wp_nav_menu( array(
-      'menu'				=> "navBar", // (int|string|WP_Term) Desired menu. Accepts a menu ID, slug, name, or object.
-      'menu_class'		=> "navbar", // (string) CSS class to use for the ul element which forms the menu. Default 'menu'.
-      // 'menu_id'			=> "", // (string) The ID that is applied to the ul element which forms the menu. Default is the menu slug, incremented.
-      'container'			=> "false", // (string) Whether to wrap the ul, and what to wrap it with. Default 'div'.
-      // 'container_class'	=> "", // (string) Class that is applied to the container. Default 'menu-{menu slug}-container'.
-      // 'container_id'		=> "", // (string) The ID that is applied to the container.
-      // 'fallback_cb'		=> "", // (callable|bool) If the menu doesn't exists, a callback function will fire. Default is 'wp_page_menu'. Set to false for no fallback.
-      // 'before'			=> "", // (string) Text before the link markup.
-      // 'after'				=> "", // (string) Text after the link markup.
-      // 'link_before'		=> "", // (string) Text before the link text.
-      // 'link_after'		=> "", // (string) Text after the link text.
-      // 'echo'				=> "", // (bool) Whether to echo the menu or return it. Default true.
-      'depth'				=> 2, // (int) How many levels of the hierarchy are to be included. 0 means all. Default 0.
-      // 'walker'			=> "", // (object) Instance of a custom walker class.
-      // 'theme_location'	=> "", // (string) Theme location to be used. Must be registered with register_nav_menu() in order to be selectable by the user.
-      // 'items_wrap'		=> "", // (string) How the list items should be wrapped. Default is a ul with an id and class. Uses printf() format with numbered placeholders.
-      // 'item_spacing'		=> "", // (string) Whether to preserve whitespace within the menu's HTML. Accepts 'preserve' or 'discard'. Default 'preserve'.
-    ) );
-    ?>
+    <div class="navbar_container">
+      <?php
+      wp_nav_menu( array(
+        'menu'				=> "navBar", // (int|string|WP_Term) Desired menu. Accepts a menu ID, slug, name, or object.
+        'menu_class'		=> "navbar", // (string) CSS class to use for the ul element which forms the menu. Default 'menu'.
+        // 'menu_id'			=> "", // (string) The ID that is applied to the ul element which forms the menu. Default is the menu slug, incremented.
+        'container'			=> "false", // (string) Whether to wrap the ul, and what to wrap it with. Default 'div'.
+        // 'container_class'	=> "", // (string) Class that is applied to the container. Default 'menu-{menu slug}-container'.
+        // 'container_id'		=> "", // (string) The ID that is applied to the container.
+        // 'fallback_cb'		=> "", // (callable|bool) If the menu doesn't exists, a callback function will fire. Default is 'wp_page_menu'. Set to false for no fallback.
+        // 'before'			=> "", // (string) Text before the link markup.
+        // 'after'				=> "", // (string) Text after the link markup.
+        // 'link_before'		=> "", // (string) Text before the link text.
+        // 'link_after'		=> "", // (string) Text after the link text.
+        // 'echo'				=> "", // (bool) Whether to echo the menu or return it. Default true.
+        'depth'				=> 2, // (int) How many levels of the hierarchy are to be included. 0 means all. Default 0.
+        // 'walker'			=> "", // (object) Instance of a custom walker class.
+        // 'theme_location'	=> "", // (string) Theme location to be used. Must be registered with register_nav_menu() in order to be selectable by the user.
+        // 'items_wrap'		=> "", // (string) How the list items should be wrapped. Default is a ul with an id and class. Uses printf() format with numbered placeholders.
+        // 'item_spacing'		=> "", // (string) Whether to preserve whitespace within the menu's HTML. Accepts 'preserve' or 'discard'. Default 'preserve'.
+      ));
+      ?>
+    </div>
 
-
-
-
+    
     <div class="mode_toogle_btn" onclick="altClassFromSelector('dark', 'body')">
       <svg class="mode_logo" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
         <path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z" class=""></path>
       </svg>
     </div>
+
+
+    <button class="burger" onclick="altClassFromSelector('mobile_menu_active', '#header')">
+      <div class="burgerBar"></div>
+      <div class="burgerBar"></div>
+      <div class="burgerBar"></div>
+    </button>
+
+
+
 
   </header>
