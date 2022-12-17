@@ -2,7 +2,7 @@
 
 <div class="hero">
     <figure class="Element hero_card">
-        <img class="hero_img" src="assets/snow_day.jpg" alt="">
+        <img class="hero_img" src="<?= get_template_directory_uri() ?>/assets/snow_day.jpg" alt="">
         <figcaption class="hero_caption">
             <h3 class="hero_title">Project woodyard</h3>
             <p class="hero_txt">
@@ -69,7 +69,7 @@
             If you want to learn more about The Jungle, “Le Live de la Jungle” features 39 testimonies from volunteers who participated in the construction and life of what was the largest migrant camp in Europe, with more than 10,000 inhabitants in September 2016.
         </p>
     </div>
-    <img class="book_image" src="" alt="">
+    <img class="book_image" src="<?= get_template_directory_uri() ?>/assets/le_livre.jpg" alt="">
     <div class="book_order">
         <p class="book_cat">Order the book</p>
         <p class="book_how">
@@ -95,7 +95,7 @@
       <input type="email" class="news_input" placeholder="Email">
       <button class="news_button">Subscribe!</button>
     </form>
-    <img src="" alt="" class="news_image">
+    <img class="news_image" src="<?= get_template_directory_uri() ?>/assets/newsletter.jpg" alt="">
 </section>
 
 
