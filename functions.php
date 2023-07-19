@@ -233,8 +233,53 @@ function excerpt($charNumber){
 
 
 
+  function my_theme_customize_register( $wp_customize ) {
+     // Add a new setting for the color picker
+     $wp_customize->add_setting( 'brand_color_iso', array(
+        'default'           => '#28327F',
+        'sanitize_callback' => 'sanitize_hex_color',
+     ) );
+
+     // Add a new control for the color picker
+     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'brand_color_iso_control', array(
+        'label'    => __( 'Color Iso', 'my-theme' ),
+        'section'  => 'colors',
+        'settings' => 'brand_color_iso',
+     ) ) );
 
 
+      // Add a new setting for the color picker
+      $wp_customize->add_setting( 'brand_color_logo', array(
+         'default'           => '#A4C113',
+         'sanitize_callback' => 'sanitize_hex_color',
+      ) );
+
+      // Add a new control for the color picker
+      $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'brand_color_logo_control', array(
+         'label'    => __( 'Color Logo', 'my-theme' ),
+         'section'  => 'colors',
+         'settings' => 'brand_color_logo',
+      ) ) );
+  }
+  add_action( 'customize_register', 'my_theme_customize_register' );
+
+
+
+
+
+
+
+
+
+
+function add_slug_body_class( $classes ) {
+  global $post;
+  if ( isset( $post ) ) {
+    $classes[] = $post->post_type . '-' . $post->post_name;
+  }
+  return $classes;
+}
+add_filter( 'body_class', 'add_slug_body_class' );
 
 
 

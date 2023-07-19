@@ -35,8 +35,8 @@ function lt_form_handler() {
     	// $link = add_query_arg( array( 'status' => 'bot' , ), $link );
     // } else {
 
-
-      if (wp_mail( get_option('contact_form_to') , $subject , $message , $headers )) {
+			$status = wp_mail( get_option('contact_form_to') , $subject , $message , $headers );
+      if ($status) {
         $link = add_query_arg( array( 'status' => 'sent' , ), $link );
       } else {
         $link = add_query_arg( array( 'status' => 'error', ), $link );

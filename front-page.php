@@ -47,13 +47,15 @@
 
 <section class="cats">
     <figure class="cat">
-        <figcaption class="cat_caption">
+        <img class="cat_img rowcol1" src="<?= get_template_directory_uri() ?>/assets/je_donne_img.jpg" alt="">
+        <figcaption class="cat_caption rowcol1">
             <p class="cat_text">Donate</p>
             <p class="cat_button">Donate now</p>
         </figcaption>
     </figure>
     <div class="cat">
-        <figcaption class="cat_caption">
+        <img class="cat_img rowcol1" src="<?= get_template_directory_uri() ?>/assets/member_img.jpg" alt="">
+        <figcaption class="cat_caption rowcol1">
             <p class="cat_text">Become a Member</p>
             <p class="cat_button">Join today</p>
         </figcaption>
