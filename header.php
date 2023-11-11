@@ -78,7 +78,7 @@ $scrt = '6LcRuNAUAAAAALBu7Ymh0yxmTXTJmP0rsnkjGyj0';
       ?>
     </div>
 
-    <a class="header_CTA" href="<?= home_url() ?>/support/make-a-donation/">Donate</a>
+    <a class="header_CTA" href="<?= home_url() ?>/support/make-a-donation/">Faire un don</a>
 
 
     <div class="mode_toogle_btn" onclick="altClassFromSelector('dark', 'body')">

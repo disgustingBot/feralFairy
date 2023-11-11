@@ -4,9 +4,9 @@
 <section class="abstract">
     <h1 class="abstract_title"><?=get_the_title()?></h1>
         
-    <p class="abstract_text">
-        <?=get_the_excerpt()?>
-    </p>
+    <!-- <p class="abstract_text">
+        <?php // echo get_the_excerpt(); ?>
+    </p> -->
 </section>
 
 

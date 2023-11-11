@@ -459,6 +459,11 @@ section.main .wp-block-column li{
 	z-index: 2;
 }
 
+/* FORM MAIL CHIMP */
+.mc4wp-form                         {display:grid}
+.mc4wp-form-fields                  {margin:auto}
+.mc4wp-form-basic input[type=text]  {min-width: 280px}
+.mc4wp-form-basic input[type=submit],
 .header_CTA{
 	background: var(--color_iso_main);
 	color:white;
